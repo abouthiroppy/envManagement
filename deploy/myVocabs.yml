@@ -1,0 +1,6 @@
+- hosts: myVocabs
+  tasks:
+    - name: Move Dir
+      shell: git pull origin master chdir=/var/www/html/myVocabs
+    - name: Build
+      shell: grunt build chdir=/var/www/html/myVocabs
