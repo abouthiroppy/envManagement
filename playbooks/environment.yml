@@ -1,0 +1,59 @@
+----
+- include: apt.yml
+- include: rbenv.yml
+   
+hosts: default
+  sudo: yes
+  tasks:
+
+    - name: Install mysql
+      apt: pkg=mysql-server
+    - name: Restart mysql
+      service: name=mysql state=started enabled=yes
+    
+    - name: Install redis
+      apt: pkg=redis-server
+    - name: Restart redis
+      service: name=redis-server state=started enabled=yes
+
+    - name: Install mongodb
+      apt: pkg=mongodb
+    # - name: Restart mongodb
+    #   service: name=mongodb state=restarted enabled=yes
+
+
+    - name: Install Postgresql
+      apt: pkg=postgresql
+    - name: Restart postgresql
+      service: name=postgresql state=started
+    - name: Change postgres password
+      shell: sudo -u postgres psql -c "ALTER USER postgres encrypted password 'postgres'" 
+    - name: Install bundler
+      command: gem install bundler
+    
+    - name: Install required tools
+      apt: pkg={{item}}
+      with_items:
+        - nodejs
+        - npm
+    
+
+    - name: Install utils
+      apt: pkg={{item}}
+      with_items:
+        - libmysql++-dev
+        - htop
+        - iftop
+        - tcpdump
+        - nmap
+        - arp-scan
+        - tmux
+        - vim
+        - zsh
+        - tig
+        # - nginx
+        - php5
+        - python-mysqldb
+        - libmagick++-dev
+        - imagemagick
+        - libpq-dev
