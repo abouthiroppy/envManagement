@@ -13,8 +13,8 @@ hosts: default
     
     - name: Install redis
       apt: pkg=redis-server
-    - name: Restart redis
-      service: name=redis-server state=started enabled=yes
+    #- name: Restart redis
+    #  service: name=redis-server state=started enabled=yes
 
     - name: Install mongodb
       apt: pkg=mongodb
@@ -24,12 +24,12 @@ hosts: default
 
     - name: Install Postgresql
       apt: pkg=postgresql
-    - name: Restart postgresql
-      service: name=postgresql state=started
-    - name: Change postgres password
-      shell: sudo -u postgres psql -c "ALTER USER postgres encrypted password 'postgres'" 
-    - name: Install bundler
-      command: gem install bundler
+   # - name: Restart postgresql
+   #   service: name=postgresql state=started
+   # - name: Change postgres password
+   #   shell: sudo -u postgres psql -c "ALTER USER postgres encrypted password 'postgres'" 
+   # - name: Install bundler
+   #   command: gem install bundler
     
     - name: Install required tools
       apt: pkg={{item}}
